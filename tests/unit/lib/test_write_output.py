@@ -1,5 +1,7 @@
 import os
+# Remove file with os.remove
 import shutil
+# Remove directory and contents with shutil.rmtree
 
 try:
     import unittest2 as unittest
@@ -74,5 +76,44 @@ class TestWriteOutput(unittest.TestCase):
             write_output(file_path, output, append=True)
 
             self._assert_length(file_path, 2)
+        finally:
+            self._clean_up_file(file_path)
+
+    def test_dict_write_simple(self):
+        from outlib.lib.write_output import write_output
+        file_path = "%s%s" % (test_file_directory, 'test_dict_write_simple.txt')
+
+        output = {'a': 'cool'}
+
+        try:
+            write_output(file_path, output)
+
+            self._assert_length(file_path, 3)
+        finally:
+            self._clean_up_file(file_path)
+
+    def test_dict_write_one_inside_another(self):
+        from outlib.lib.write_output import write_output
+        file_path = "%s%s" % (test_file_directory, 'test_dict_write_one_inside_another.txt')
+
+        output = {'a': 'cool', 'b': {'c': '45'}}
+
+        try:
+            write_output(file_path, output)
+
+            self._assert_length(file_path, 6)
+        finally:
+            self._clean_up_file(file_path)
+
+    def test_dict_write_one_inside_another_with_int_value(self):
+        from outlib.lib.write_output import write_output
+        file_path = "%s%s" % (test_file_directory, 'test_dict_write_one_inside_another.txt')
+
+        output = {'a': 'cool', 'b': {'c': 45}}
+
+        try:
+            write_output(file_path, output)
+
+            self._assert_length(file_path, 6)
         finally:
             self._clean_up_file(file_path)
