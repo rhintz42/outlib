@@ -3,8 +3,11 @@ import json
 
 """
 * Be able to have encapsulated in pattern
-* Add objects folder can store objects and such
+* Add objects folder can store objects and such and write function to dumps those
 """
+def obj_to_output_list(obj):
+    pass
+
 def dict_to_output_list(output):
     output_lines = json.dumps(output, indent=4, sort_keys=True).splitlines()
     return output_lines
