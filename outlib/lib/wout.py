@@ -1,7 +1,10 @@
 import os
 import json
 import logging
-from outlib.lib.format_vals import format_value, format_for_logger
+from outlib.lib.format_vals import format_value
+from outlib.lib.value_conversion import value_to_json, value_to_output_list, \
+                                        value_to_json_pretty, \
+                                        value_to_logger_output
 
 """
 WOUT means "Write Output"
@@ -9,19 +12,6 @@ WOUT means "Write Output"
 * If you want more control over the output, goto the format_vals module and use
     the "format_value" function
 """
-
-def value_to_json(formatted_output, indent=4, sort_keys=True):
-    return json.dumps(formatted_output, indent=indent, sort_keys=sort_keys)
-
-def value_to_output_list(val):
-    output_list = []
-
-    formatted_output = format_value(val)
-
-    output_list = value_to_json(formatted_output).splitlines()
-
-    return output_list
-
 def output_to_file(file_path, input_var, append=False):
     write_type = 'a' if append else 'w'
 
@@ -35,5 +25,6 @@ def output_to_file(file_path, input_var, append=False):
     f.close()
 
 def output_to_logger(input_var, logger_type="info", logger=None):
-    output = format_for_logger('\n\n' + input_var + '\n\n')
-    logging.info(output)
+    formatted_output = value_to_logger_output(input_var)
+
+    logging.info(formatted_output)

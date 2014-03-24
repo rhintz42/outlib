@@ -6,7 +6,6 @@ production.ini
 setup.cfg
 setup.py
 test-requirements.txt
-test_stuff.txt
 outlib/__init__.py
 outlib.egg-info/PKG-INFO
 outlib.egg-info/SOURCES.txt
@@ -16,14 +15,18 @@ outlib.egg-info/not-zip-safe
 outlib.egg-info/requires.txt
 outlib.egg-info/top_level.txt
 outlib/lib/__init__.py
-outlib/lib/write_output.py
+outlib/lib/format_vals.py
+outlib/lib/value_conversion.py
+outlib/lib/wout.py
 outlib/models/__init__.py
 outlib/views/__init__.py
 outlib/views/views.py
 tests/__init__.py
 tests/test_files/__init__.py
 tests/test_objects/__init__.py
+tests/test_objects/row_proxy.py
 tests/test_objects/tobject.py
 tests/unit/__init__.py
 tests/unit/lib/__init__.py
+tests/unit/lib/test_formats.py
 tests/unit/lib/test_write_output.py

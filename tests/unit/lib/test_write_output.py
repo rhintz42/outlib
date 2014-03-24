@@ -269,12 +269,20 @@ class TestOutputToLogger(unittest.TestCase):
     This class is meant to test the output_to_logger function
     """
     
-    def test_log_simple(self):
+    def test_log_simple_has_msg(self):
         from outlib.lib.wout import output_to_logger
 
         with LogCapture() as l:
             output_to_logger('This is a Test')
 
-        assert l.check(('root', 'INFO', '\n\nThis is a Test\n\n'))
+        assert 'This is a Test' in l.records[0].msg
+    
+    def test_log_simple_has_lead_in(self):
+        from outlib.lib.wout import output_to_logger
+
+        with LogCapture() as l:
+            output_to_logger('This is a Test')
+
+        assert '===============================================' in l.records[0].msg
 
 

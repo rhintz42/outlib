@@ -13,7 +13,11 @@ def _format_dict(dict_input):
     formatted_output_dict = {}
 
     for key,val in dict_input.items():
-        formatted_output_dict[key] = format_value(val)
+        try:
+            d = json.dumps(val)
+            formatted_output_dict[key] = val
+        except:
+            formatted_output_dict[key] = format_value(val)
 
     return formatted_output_dict
 
@@ -28,13 +32,16 @@ def _format_list(list_input):
     formatted_list = []
 
     for val in list_input:
-        formatted_list.append(format_value(val))
+        try:
+            d = json.dumps(val)
+            formatted_list.append(val)
+        except:
+            formatted_list.append(format_value(val))
 
     return formatted_list
         
 def _format_object(obj_input):
-    formatted_output_dict = _format_dict(obj_input.__dict__)
-    return formatted_output_dict
+    return format(obj_input)
 
 def _format_row_proxy(row_proxy_input):
     output_dict = {}
@@ -46,16 +53,20 @@ def _format_row_proxy(row_proxy_input):
     return formatted_output_dict
 
 def format_value(val):
-    if type(val) is str or type(val) is int or type(val) is long:
+    if type(val) is str or \
+       type(val) is int or \
+       type(val) is long or \
+       type(val) is float or \
+       val is None:
         return val
     elif type(val) is dict:
         return _format_dict(val)
     elif type(val) is list:
         return _format_list(val)
+    # ADD TEST FOR TUPLES
+    elif type(val) is tuple:
+        return _format_list(val)
     elif type(val).__name__ is 'RowProxy':
         return _format_row_proxy(val)
     else:
         return _format_object(val)
-
-def format_for_logger(val):
-    return val
