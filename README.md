@@ -50,4 +50,68 @@ Example:
     from outlib.lib.wout import output_to_logger
 
     def test_function(cool):
+        # This prints the object "cool" to the logger
         output_to_logger(cool)
+
+
+
+
+
+
+MORE COMPLICATED STUFF
+======================
+If you want to do more complicated stuff with this library, go for it! Here
+are some guided suggestions
+
+
+Local Installation
+------------------
+If you'd like to hack on this library, feel free to! Here are steps to download
+and use this library locally:
+
+Create a new python virtual environment
+
+    virtualenv outlib
+
+Go into the new folder created
+
+    cd outlib
+
+Activate your Environment
+
+    source bin/activate
+
+Create a source folder
+
+    mkdir src
+
+Go into the src folder
+
+    cd src
+
+Git clone the repository
+
+    git clone https://github.com/rhintz42/outlib.git
+
+Go into the new folder
+
+    cd outlib
+
+Install all the dependencies and create the egg-file
+
+    python setup.py develop
+
+Install all the test dependencies
+
+    pip install -r test-requirements.txt
+
+Everything should be installed for this project, but now you need to install
+this library in your project. Goto the virtual environment of the project you
+want to use this library in and activate that environment. Then, go back to
+the outlib folder and type this command
+
+    python setup.py develop
+
+This will install outlib in the site-packages folder in that python
+environment, so you can now change code in your outlib directory, and it will
+affect that project!
