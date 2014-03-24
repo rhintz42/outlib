@@ -115,3 +115,116 @@ the outlib folder and type this command
 This will install outlib in the site-packages folder in that python
 environment, so you can now change code in your outlib directory, and it will
 affect that project!
+
+
+How to Run The Tests
+--------------------
+If you hack on this locally (Which you definitely should!), you should run and
+add tests! To run the tests, first install the necessary dependencies (If you
+haven't done so already):
+
+    pip install -r test-requirements.txt
+
+After that, just run this command and your tests should run
+
+    py.test
+
+
+How to Add Tests
+----------------
+To add tests, just go into the correct folder and add tests!
+
+To add Unit Tests, goto this folder:
+
+    oulib/tests/unit/
+
+If you want to add a Unit Test to a library, goto this folder:
+
+    outlib/tests/unit/lib
+
+Try to follow the naming convention of
+
+    test_<file_name_of_thing_testing>.py
+
+And try to look at a few tests to see the conventions used for tests
+
+
+How to Make This Library a Dependency for your Python Project
+-------------------------------------------------------------
+If you have a standard python project that has a setup.py file, it's easy to
+make outlib be one of its dependencies. Just follow these steps:
+
+First, add a new array "github_dependencies" above the "setup" method, and
+add 'git+git://github.com/rhintz42/outlib.git#egg=outlib' to the array
+
+    github_dependencies = [
+        'git+git://github.com/rhintz42/outlib.git#egg=outlib'
+    ]
+
+Next, add the library to your 'requires' array
+
+    requires = [
+        # The ... signifies all the other packages you require
+        ...,
+        'outlib'
+    ]
+
+Last, add the kwarg 'dependency_links=github_dependcies,' to your setup method
+
+    setup(name='<your_project>',
+          ...,
+          dependency_links=github_dependencies,
+          ...,
+          )
+
+
+Example setup.py from https://github.com/rhintz42/proflib.git:
+
+    import os
+
+    from setuptools import setup, find_packages
+
+    here = os.path.abspath(os.path.dirname(__file__))
+    with open(os.path.join(here, 'README.txt')) as f:
+        README = f.read()
+    with open(os.path.join(here, 'CHANGES.txt')) as f:
+        CHANGES = f.read()
+
+    requires = [
+        'pyramid',
+        'pyramid_chameleon',
+        'pyramid_debugtoolbar',
+        'waitress',
+        'outlib'
+        ]
+
+    github_dependencies = [
+        'git+git://github.com/rhintz42/outlib.git#egg=outlib'
+    ]
+
+    setup(name='proflib',
+          version='1.0.1',
+          description='proflib',
+          long_description=README + '\n\n' + CHANGES,
+          classifiers=[
+            "Programming Language :: Python",
+            "Framework :: Pyramid",
+            "Topic :: Internet :: WWW/HTTP",
+            "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+            ],
+          author='',
+          author_email='',
+          url='',
+          keywords='web pyramid pylons',
+          packages=find_packages(),
+          include_package_data=True,
+          zip_safe=False,
+          install_requires=requires,
+          dependency_links=github_dependencies,
+          tests_require=requires,
+          test_suite="proflib",
+          entry_points="""\
+          [paste.app_factory]
+          main = proflib:main
+          """,
+          )
