@@ -41,7 +41,10 @@ def _format_list(list_input):
     return formatted_list
         
 def _format_object(obj_input):
-    return format(obj_input)
+    if 'to_dict' not in dir(obj_input):
+        return format(obj_input.__dict__)
+        
+    return _format_dict(obj_input.to_dict()) 
 
 def _format_row_proxy(row_proxy_input):
     output_dict = {}
@@ -52,6 +55,12 @@ def _format_row_proxy(row_proxy_input):
 
     return formatted_output_dict
 
+# The user should be able to define classes they want formatted in a certain way
+#   Example: Question class
+# The user should be able to allow user to specfy the name of the function to
+#   execute to make function into a dictionary
+#   Example: to_dict
+#   * http://stackoverflow.com/questions/7936572/python-call-a-function-from-string-name
 def format_value(val):
     if type(val) is str or \
        type(val) is int or \

@@ -16,7 +16,7 @@ requires = [
     ]
 
 setup(name='outlib',
-      version='1.0.1',
+      version='1.0.2',
       description='outlib',
       long_description=README + '\n\n' + CHANGES,
       classifiers=[
