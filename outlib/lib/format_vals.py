@@ -46,6 +46,8 @@ def _format_object(obj_input):
             # TODO: This is temporary. Should really try to check otherways
             # whether can parse the object or not
             return {}
+        if obj_input.__class__.__name__ == 'function':
+            return "<function: %s>"%(obj_input.__name__)
         return format(obj_input.__dict__)
         
     return _format_dict(obj_input.to_dict()) 
