@@ -42,6 +42,10 @@ def _format_list(list_input):
         
 def _format_object(obj_input):
     if 'to_dict' not in dir(obj_input):
+        if not hasattr(obj_input, '__dict__'):
+            # TODO: This is temporary. Should really try to check otherways
+            # whether can parse the object or not
+            return {}
         return format(obj_input.__dict__)
         
     return _format_dict(obj_input.to_dict()) 
